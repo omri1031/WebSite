@@ -1,6 +1,6 @@
 //global var to check password conditions
 var FLAGS = [false, false, false, false, false];
-//gloנal array for correct error message
+//global array for correct error message
 var errors = [
   "Atleast one small char",
   "Atleast one capital char",

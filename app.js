@@ -5,6 +5,35 @@ const bodyParser = require("body-parser");
 const port = 8080;
 const usersSignup = [];
 
+// SQL setup
+var mysql = require("mysql");
+var DBhost = "localhost";
+var DBuser = "root";
+var DBpassword = "";
+var DBdatabase = "userDB";
+
+// Sql connection
+var con = mysql.createConnection({
+  host: DBhost,
+  user: DBuser,
+  password: DBpassword,
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+  con.query("CREATE DATABASE IF NOT EXISTS userDB", function (err, result) {
+    if (err) throw err;
+    console.log("Database created");
+  });
+  var sql =
+    "CREATE TABLE IF NOT EXISTS userDB.users (ID INT,Name VARCHAR(45),FamilyName VARCHAR(45),Email VARCHAR(45),PromoCode VARCHAR(45),Country VARCHAR(45) NULL,City VARCHAR(45) NULL,Street VARCHAR(45) NULL,ZipCode VARCHAR(45) NULL,Password VARCHAR(45) NULL,Spare1 VARCHAR(45) NULL,Spare2 VARCHAR(45) NULL,Spare3 INT NULL,Spare INT NULL)";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Table created");
+  });
+});
+
 //Create static files
 app.use(express.static(__dirname));
 app.use(bodyParser.json()); // support json encoded bodies
@@ -42,16 +71,45 @@ app.post("/sign-in", function (req, res) {
     console.log("User not found");
   }
 });
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.post("/sign-up", function (req, res) {
-  let email = req.body.email;
-  let pass = req.body.psw;
-  console.log("new user");
-  usersSignup.push({
-    user: email,
-    pass: pass,
-  });
+  var Fname = req.body.firstName;
+  var Lname = req.body.lastName;
+  var pass = req.body.Password;
+  var email = req.body.email;
+  var pCode = req.body.promoCode;
+  console.log(req.body);
 
+  con.connect(function (err) {
+    console.log("Connected from signup post!");
+    con.query(
+      "SELECT * FROM userDB.users WHERE email='" + email + "'",
+      function (err, result) {
+        if (err) throw err;
+        console.log(result.length);
+        if (result.length == 0) {
+          var sql =
+            "INSERT INTO userDB.users ('Name','FamilyName','Email','Password','PromoCode') VALUES ('" +
+            Fname +
+            "','" +
+            Lname +
+            "','" +
+            email +
+            "',SHA1('" +
+            pass +
+            "'),'" +
+            pCode +
+            "')";
+          con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("1 record inserted");
+          });
+        }
+      }
+    );
+  });
   res.redirect("/sign-in");
   console.log(usersSignup);
   var mailOptions = {
@@ -61,13 +119,13 @@ app.post("/sign-up", function (req, res) {
     text: "That was easy!2",
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log("Email sent: " + info.response);
+  //   }
+  // });
 });
 app.get("/api/users", function (req, res) {
   var user_id = req.param("id");
