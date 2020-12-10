@@ -25,7 +25,7 @@ app.get("/dashboard", (req, res) => {
   res.sendFile(__dirname + "/dash.html");
 });
 
-app.post("/login", function (req, res) {
+app.post("/sign-in", function (req, res) {
   let email = req.body.email;
   let pass = req.body.psw;
   index = usersSignup.findIndex((x) => x.user === email && x.pass === pass);
@@ -43,7 +43,7 @@ app.post("/login", function (req, res) {
   }
 });
 
-app.post("/signup", function (req, res) {
+app.post("/sign-up", function (req, res) {
   let email = req.body.email;
   let pass = req.body.psw;
   console.log("new user");
@@ -52,7 +52,7 @@ app.post("/signup", function (req, res) {
     pass: pass,
   });
 
-  res.redirect("/login");
+  res.redirect("/sign-in");
   console.log(usersSignup);
   var mailOptions = {
     from: "youremail@gmail.com",
