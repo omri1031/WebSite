@@ -1,0 +1,122 @@
+
+/* General CSS */
+
+body {
+  background-image: url(/img/bgLog.jpg);
+  background-repeat: no-repeat;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+}
+h1,
+h2,
+h3 {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+p {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+}
+.container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px ridge lightblue;
+  border-radius: 10px;
+  margin-top: 5%;
+  padding: 3%;
+  width: 30%;
+}
+/* End General */
+
+/* Password message - Start */
+#message {
+  margin-top: 0%;
+}
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "\2714";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "\2613";
+}
+
+/* Password message - END */
+
+/* Forms CSS */
+.lostpass {
+  font-size: 12px;
+  float: right;
+}
+input {
+  border-style: ridge;
+  border-radius: 25px;
+}
+.signUp {
+  text-align: center;
+  color: grey;
+}
+
+label {
+  font-weight: bold;
+}
+/* End Form */
+
+/* Contact Us CSS */
+.row {
+  margin: auto;
+  margin-top: 0%;
+}
+.formClass {
+  background-color: white;
+  border: 2px ridge lightblue;
+  border-radius: 10px;
+  margin: auto;
+  padding: 2%;
+  height: 100%;
+}
+.jumbotron,
+.jumbotron-fluid {
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: auto;
+  margin-top: 5%;
+  height: 90%;
+}
+.jumbotron-fluid {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: beige;
+  width: 100%;
+}
+#c247 {
+  text-align: center;
+}
+
+.info {
+  border-color: #2196f3;
+  color: dodgerblue;
+}
+.info:hover {
+  background: #2196f3;
+  color: white;
+}
+.icon {
+  position: relative;
+  top: 5px;
+  left: 5px;
+}
+
+/* End Contact CSS */

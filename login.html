@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Log In Page</title>
+    <!-- BootStrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" media="all" href="style.css">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="funcs.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+</head>
+
+<body>
+    <!-- Menu -->
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/login">Login</a>
+            <a class="dropdown-item" href="/signup">signUp</a>
+            <a class="dropdown-item" href="/contact">Contact</a>
+        </div>
+    </div>
+    <!-- End Menu -->
+
+    <div class="container">
+        <h1 align="center">Welcome Back!</h1>
+        <!-- Start Login Form -->
+        <form method="POST" action="login">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><img src="/img/outline_account_box_black_18dp.png"
+                            alt=""></span>
+                </div>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><img src="/img/outline_lock_black_18dp.png"
+                            alt=""></span>
+                </div>
+                <input type="password" onclick="validFunc()" class="form-control" id="psw" name="psw"
+                    placeholder="Password" title=" Must contain at least one number and one uppercase and lowercase letter and one special
+                    char, and at least 6 or more characters" required>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="return alerts()">Log In</button>
+            <div class="signUp"><br>
+                <p><b>Need an account? <a href="/signup">Sign Up</a></b></p>
+            </div>
+        </form>
+        <!-- End Login Form -->
+    </div>
+    <!-- Start password check -->
+    <div id="message" class="container" style="display: none;">
+        <h1>Password must contain the following:</h1>
+        <p id="letter" class="invalid"><b>Lowercase</b> letter</p>
+        <p id="capital" class="invalid"><b>Capital (Uppercase)</b> letter</p>
+        <p id="number" class="invalid"><b>Number</b></p>
+        <p id="spechar" class="invalid"><b>Special Char</b></p>
+        <p id="length" class="invalid">Minimum <b>6 characters long</b></p>
+    </div>
+
+</body>
+
+</html>
