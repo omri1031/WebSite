@@ -11,15 +11,18 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Create file routing
-app.get("/login", (req, res) => {
+app.get("/sign-in", (req, res) => {
   res.sendFile(__dirname + "/login.html");
 });
 
-app.get("/signup", (req, res) => {
+app.get("/sign-up", (req, res) => {
   res.sendFile(__dirname + "/signUp.html");
 });
-app.get("/contact", (req, res) => {
-  res.sendFile(__dirname + "/contact.html");
+app.get("/reset-password", (req, res) => {
+  res.sendFile(__dirname + "/reset.html");
+});
+app.get("/dashboard", (req, res) => {
+  res.sendFile(__dirname + "/dash.html");
 });
 
 app.post("/login", function (req, res) {

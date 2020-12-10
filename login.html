@@ -25,25 +25,24 @@
 
 </head>
 
-<body>
-    <!-- Menu -->
+<body class="bg-gradient-primary">
+        <!-- Menu -->
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Menu
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/login">Login</a>
-            <a class="dropdown-item" href="/signup">signUp</a>
-            <a class="dropdown-item" href="/contact">Contact</a>
+            <a class="dropdown-item" href="/sign-in">sign-in</a>
+            <a class="dropdown-item" href="/sign-up">sign-up</a>
         </div>
     </div>
     <!-- End Menu -->
 
     <div class="container">
         <h1 align="center">Welcome Back!</h1>
-        <!-- Start Login Form -->
-        <form method="POST" action="login">
+        <!-- Start sign-in Form -->
+        <form method="POST" action="sign-in">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><img src="/img/outline_account_box_black_18dp.png"
@@ -61,11 +60,11 @@
                     char, and at least 6 or more characters" required>
             </div>
             <button type="submit" class="btn btn-primary" onclick="return alerts()">Log In</button>
-            <div class="signUp"><br>
-                <p><b>Need an account? <a href="/signup">Sign Up</a></b></p>
+            <div class="sign-up"><br>
+                <p><b>Need an account? <a href="/sign-up">Sign Up</a></b></p>
             </div>
         </form>
-        <!-- End Login Form -->
+        <!-- End sign-in Form -->
     </div>
     <!-- Start password check -->
     <div id="message" class="container" style="display: none;">
