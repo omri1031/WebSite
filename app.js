@@ -2,12 +2,12 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 8080;
+const port = process.env.PORT || 5000;
 const usersSignup = [];
 
 // SQL setup
 var mysql = require("mysql");
-var DBhost = "localhost";
+var DBhost = process.env.DATABASE_URL;
 var DBuser = "root";
 var DBpassword = "";
 var DBdatabase = "userDB";
