@@ -22,7 +22,8 @@
     "expressjs": "*",
     "mysql": "*",
     "nodemailer": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "pg": "^8.5.1"
   },
   "devDependencies": {},
   "description": ""

@@ -4,35 +4,16 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
 const usersSignup = [];
+const { Client } = require('pg');
 
 // SQL setup
-var mysql = require("mysql");
-var DBhost = process.env.DATABASE_URL;
-var DBuser = "root";
-var DBpassword = "";
-var DBdatabase = "userDB";
-
-// Sql connection
-var con = mysql.createConnection({
-  host: DBhost,
-  user: DBuser,
-  password: DBpassword,
+const con = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
-
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-  con.query("CREATE DATABASE IF NOT EXISTS userDB", function (err, result) {
-    if (err) throw err;
-    console.log("Database created");
-  });
-  var sql =
-    "CREATE TABLE IF NOT EXISTS userDB.users (ID INT,Name VARCHAR(45),FamilyName VARCHAR(45),Email VARCHAR(45),PromoCode VARCHAR(45),Country VARCHAR(45) NULL,City VARCHAR(45) NULL,Street VARCHAR(45) NULL,ZipCode VARCHAR(45) NULL,Password VARCHAR(45) NULL,Spare1 VARCHAR(45) NULL,Spare2 VARCHAR(45) NULL,Spare3 INT NULL,Spare INT NULL)";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-});
+con.connect();
 
 //Create static files
 app.use(express.static(__dirname));
