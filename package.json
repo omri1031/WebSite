@@ -18,7 +18,7 @@
   "homepage": "https://github.com/omri1031/WebSite#readme",
   "dependencies": {
     "body-parser": "*",
-    "express": "^4.17.1",
+    "express": "*",
     "expressjs": "*",
     "mysql": "*",
     "nodemailer": "*",
