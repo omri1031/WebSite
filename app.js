@@ -16,7 +16,7 @@ const con = new Client({
 con.connect();
 
 //Create static files
-app.use(express.static(__dirname,".."));
+app.use(express.static(__dirname));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
@@ -26,7 +26,7 @@ app.get("/sign-in", (req, res) => {
 });
 
 app.get("/sign-up", (req, res) => {
-  res.sendFile(__dirname + "/signUp.html");
+  res.sendFile(__dirname + "/signup.html");
 });
 app.get("/reset-password", (req, res) => {
   res.sendFile(__dirname + "/reset.html");
