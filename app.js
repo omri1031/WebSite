@@ -75,17 +75,19 @@ app.post("/sign-up", function (req, res) {
   var pass = req.body.Password;
   var email = req.body.email;
   var pCode = req.body.promoCode;
-  console.log(req.body);
 
   con.query("select * from users where email=$1", [email], (err, res) => {
     var result = JSON.stringify(res.rows[1]);
     if (result != null) {
       console.log("User exists");
     } else {
-      con.query(
-        "if not exists from users WHERE email=$1 INSERT INTO users ($2,$3,$1,$4,$5)",
-        [email, Fname, Lname, pass, pCode]
-      );
+      con.query("INSERT INTO users ($2,$3,$1,$4,$5)", [
+        email,
+        Fname,
+        Lname,
+        pass,
+        pCode,
+      ]);
     }
   });
 
