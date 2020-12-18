@@ -17,7 +17,7 @@ const con = new Client({
 
 con.connect(function (err) {
   console.log("Connected!");
-  con.query("CREATE DATABASE IF NOT EXISTS userDB", function (err, result) {
+  con.query("DROP DATABASE IF EXISTS userDB; CREATE DATABASE userDB;", function (err, result) {
     console.log("Database created");
   });
   var sql =
