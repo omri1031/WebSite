@@ -6,7 +6,7 @@ const port = process.env.PORT || 5555;
 const usersSignup = [];
 const { Client } = require("pg");
 conn = process.env.DATABASE_URL || "127.0.0.1";
-var sha1 = require('sha1');
+var SHA1 = require('sha1');
 
 // SQL setup
 const con = new Client({
