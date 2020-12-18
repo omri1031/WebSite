@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
 const usersSignup = [];
 const { Client } = require("pg");
-const encryption = require("./encryption");
 conn = process.env.DATABASE_URL;
 
 // SQL setup
