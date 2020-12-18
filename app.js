@@ -33,7 +33,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Create file routing
-app.get("/sign-in", (req, res) => {
+app.get("/sign-in" || "/", (req, res) => {
   res.sendFile(__dirname + "/login.html");
 });
 
