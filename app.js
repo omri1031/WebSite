@@ -5,8 +5,8 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 5555;
 const usersSignup = [];
 const { Client } = require("pg");
-conn = process.env.DATABASE_URL || "127.0.0.1";
-var SHA1 = require('sha1');
+conn = process.env.DATABASE_URL || "localhost";
+var SHA1 = require("sha1");
 
 // SQL setup
 const con = new Client({
@@ -77,10 +77,17 @@ app.post("/sign-up", function (req, res) {
   var pCode = req.body.promoCode;
   console.log(req.body);
 
-  con.query(
-    "if not exists users WHERE email=$1 INSERT INTO users ($2,$3,$1,$4,$5)",
-    [email, Fname, Lname, pass, pCode]
-  );
+  con.query("select * from users where email=$1", [email], (err, res) => {
+    var result = JSON.stringify(re.rows[1]);
+    if (result != null) {
+      console.log("User exists");
+    } else {
+      con.query(
+        "if not exists from users WHERE email=$1 INSERT INTO users ($2,$3,$1,$4,$5)",
+        [email, Fname, Lname, pass, pCode]
+      );
+    }
+  });
 
   res.redirect("/sign-in");
   console.log(usersSignup);
