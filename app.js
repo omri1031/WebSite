@@ -16,24 +16,13 @@ const con = new Client({
 });
 
 con.connect(function (err) {
-  if (err) {
-    throw err;
-  }
   console.log("Connected!");
   con.query("CREATE DATABASE IF NOT EXISTS userDB", function (err, result) {
-    if (err) {
-      throw err;
-    }
-
     console.log("Database created");
   });
   var sql =
     "CREATE TABLE IF NOT EXISTS userDB.users (ID INT,Name VARCHAR(45),FamilyName VARCHAR(45),Email VARCHAR(45),PromoCode VARCHAR(45),Country VARCHAR(45) NULL,City VARCHAR(45) NULL,Street VARCHAR(45) NULL,ZipCode VARCHAR(45) NULL,Password VARCHAR(45) NULL,Spare1 VARCHAR(45) NULL,Spare2 VARCHAR(45) NULL,Spare3 INT NULL,Spare INT NULL)";
   con.query(sql, function (err, result) {
-    if (err) {
-      throw err;
-    }
-
     console.log("Table created");
   });
 });
@@ -91,10 +80,6 @@ app.post("/sign-up", function (req, res) {
     con.query(
       "SELECT * FROM userDB.users WHERE email='" + email + "'",
       function (err, result) {
-        if (err) {
-          throw err;
-        }
-
         console.log(result.length);
         if (result.length == 0) {
           var sql =
@@ -110,10 +95,6 @@ app.post("/sign-up", function (req, res) {
             pCode +
             "')";
           con.query(sql, function (err, result) {
-            if (err) {
-              throw err;
-            }
-
             console.log("1 record inserted");
           });
         }
