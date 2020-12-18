@@ -71,8 +71,7 @@ app.post("/sign-up", function (req, res) {
   var pCode = req.body.promoCode;
   console.log(req.body);
 
-  con.listen()
-  .then(()=>con.query("if not exists users WHERE email='" + email + "'INSERT INTO userDB.users ('Name','FamilyName','Email','Password','PromoCode') VALUES ('" +  Fname +  "','" +  Lname +  "','" +  email +  "',SHA1('" +  pass +  "'),'" +  pCode +  "'"))
+ con.query("if not exists users WHERE email='" + email + "'INSERT INTO userDB.users ('Name','FamilyName','Email','Password','PromoCode') VALUES ('" +  Fname +  "','" +  Lname +  "','" +  email +  "',SHA1('" +  pass +  "'),'" +  pCode +  "'"))
 
   res.redirect("/sign-in");
   console.log(usersSignup);
