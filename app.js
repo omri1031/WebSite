@@ -19,7 +19,6 @@ con.connect()
 .then(()=> console.log("Connected"))
 .then(()=>con.query("CREATE TABLE IF NOT EXISTS users (ID INT,Name VARCHAR(45),FamilyName VARCHAR(45),Email VARCHAR(45),PromoCode VARCHAR(45),Country VARCHAR(45) NULL,City VARCHAR(45) NULL,Street VARCHAR(45) NULL,ZipCode VARCHAR(45) NULL,Password VARCHAR(45) NULL,Spare1 VARCHAR(45) NULL,Spare2 VARCHAR(45) NULL,Spare3 INT NULL,Spare INT NULL)"))
 .then(()=>con.query("select * from users"))
-.finally(()=>con.end());
 
 //Create static files
 app.use(express.static(__dirname));
@@ -72,9 +71,9 @@ app.post("/sign-up", function (req, res) {
   var pCode = req.body.promoCode;
   console.log(req.body);
 
-  con.connect()
+  con.listen()
   .then(()=>con.query("if not exists users WHERE email='" + email + "'INSERT INTO userDB.users ('Name','FamilyName','Email','Password','PromoCode') VALUES ('" +  Fname +  "','" +  Lname +  "','" +  email +  "',SHA1('" +  pass +  "'),'" +  pCode +  "'"))
-  .then(()=>con.end());
+
   res.redirect("/sign-in");
   console.log(usersSignup);
   var mailOptions = {
