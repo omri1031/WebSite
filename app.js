@@ -78,7 +78,7 @@ app.post("/sign-up", function (req, res) {
   console.log(req.body);
 
   con.query("select * from users where email=$1", [email], (err, res) => {
-    var result = JSON.stringify(re.rows[1]);
+    var result = JSON.stringify(res.rows[1]);
     if (result != null) {
       console.log("User exists");
     } else {
