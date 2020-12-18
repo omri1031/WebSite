@@ -72,7 +72,7 @@ app.use(express.urlencoded());
 app.post("/sign-up", function (req, res) {
   var Fname = req.body.firstName;
   var Lname = req.body.lastName;
-  var pass = SHA1(req.body.Password);
+  var pass = req.body.Password;
   var email = req.body.email;
   var pCode = req.body.promoCode;
   console.log(req.body);
