@@ -148,5 +148,5 @@ var transporter = nodemailer.createTransport({
 // End node mailer
 
 app.listen(port, () =>
-  console.log(`listening on port http://www.localhost:${port}/`)
+  console.log(`listening on port ${process.env.DATABASE_URL}${port}/`)
 );
