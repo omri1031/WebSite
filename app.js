@@ -81,7 +81,7 @@ app.post("/sign-up", function (req, res) {
     if (result != null) {
       console.log("User exists");
     } else {
-      con.query("INSERT INTO users ($1,$2,$3,$4,$5)", [
+      con.query("INSERT INTO users (Name,FamilyName,Email,PromoCode,Password) values($1,$2,$3,$4,$5)", [
         Fname,
         Lname,
         email,
