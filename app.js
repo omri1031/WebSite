@@ -4,29 +4,39 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
 const usersSignup = [];
-const { Client } = require('pg');
+const { Client } = require("pg");
+const encryption = require("./encryption");
+conn = process.env.DATABASE_URL;
 
 // SQL setup
 const con = new Client({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: conn,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-  con.query("CREATE DATABASE IF NOT EXISTS userDB", function (err, result) {
-    if (err) throw err;
-    console.log("Database created");
-  });
-  var sql =
-    "CREATE TABLE IF NOT EXISTS userDB.users (ID INT,Name VARCHAR(45),FamilyName VARCHAR(45),Email VARCHAR(45),PromoCode VARCHAR(45),Country VARCHAR(45) NULL,City VARCHAR(45) NULL,Street VARCHAR(45) NULL,ZipCode VARCHAR(45) NULL,Password VARCHAR(45) NULL,Spare1 VARCHAR(45) NULL,Spare2 VARCHAR(45) NULL,Spare3 INT NULL,Spare INT NULL)";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-});
+const createUsersTable = `CREATE TABLE IF NOT EXISTS
+  users(
+    username VARCHAR(128) PRIMARY KEY,
+    password VARCHAR(256) NOT NULL
+  )`;
+const createDataTable = `CREATE TABLE IF NOT EXISTS
+  data(
+    ID INT, 
+    Name VARCHAR(45),
+    FamilyName VARCHAR(45),
+    Email VARCHAR(45),
+    PromoCode VARCHAR(45),
+    Country VARCHAR(45) NULL,
+    City VARCHAR(45) NULL,
+    Street VARCHAR(45) NULL,
+    ZipCode VARCHAR(45) NULL,
+    Password VARCHAR(45) NULL,
+    Spare1 VARCHAR(45) NULL,
+    Spare2 VARCHAR(45) NULL,
+    Spare3 INT NULL,Spare INT NULL
+  )`;
+client.query(createDataTable);
 
 //Create static files
 app.use(express.static(__dirname));
@@ -148,5 +158,5 @@ var transporter = nodemailer.createTransport({
 // End node mailer
 
 app.listen(port, () =>
-  console.log(`listening on port ${process.env.DATABASE_URL}${port}/`)
+  console.log(`listening on port ${process.env.DATABASE_URL}:${port}/`)
 );
