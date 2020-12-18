@@ -6,6 +6,7 @@ const port = process.env.PORT || 5555;
 const usersSignup = [];
 const { Client } = require("pg");
 conn = process.env.DATABASE_URL || "127.0.0.1";
+var sha1 = require('sha1');
 
 // SQL setup
 const con = new Client({
@@ -71,14 +72,14 @@ app.use(express.urlencoded());
 app.post("/sign-up", function (req, res) {
   var Fname = req.body.firstName;
   var Lname = req.body.lastName;
-  var pass = req.body.Password;
+  var pass = SHA1(req.body.Password);
   var email = req.body.email;
   var pCode = req.body.promoCode;
   console.log(req.body);
 
   con.query(
     "if not exists users WHERE email=$1 INSERT INTO users ($2,$3,$1,$4,$5)",
-    [email, Fname, Lname, SHA1(pass), pCode]
+    [email, Fname, Lname, pass, pCode]
   );
 
   res.redirect("/sign-in");
