@@ -1,19 +1,24 @@
-//import
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+
+// configure the app to use bodyParser()
+app.use(bodyParser.urlencoded({extended: true,}));
+app.use(bodyParser.json());
 const port = process.env.PORT || 5555;
 const usersSignup = [];
 const { Client } = require("pg");
-conn = process.env.DATABASE_URL || "localhost";
-var SHA1 = require("sha1");
 
-// SQL setup
+//Create static files
+app.use(express.static(__dirname));
+
+// Sql Database set-up
+conn =
+  process.env.DATABASE_URL || "postgres://postgres:123456@localhost:5432/users";
+
 const con = new Client({
   connectionString: conn,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: process.env.DATABASE_URL ? true : false,
 });
 
 con
@@ -26,24 +31,19 @@ con
   )
   .then(() => con.query("select * from users"));
 
-//Create static files
-app.use(express.static(__dirname));
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-
 // Create file routing
 app.get("/", (req, res) => {
   res.redirect("/sign-in");
 });
 app.get("/sign-in", (req, res) => {
-  res.sendFile(__dirname + "/login.html");
+  res.sendFile(__dirname + "/html/login.html");
 });
 
 app.get("/sign-up", (req, res) => {
-  res.sendFile(__dirname + "/signup.html");
+  res.sendFile(__dirname + "/html/signup.html");
 });
 app.get("/reset-password", (req, res) => {
-  res.sendFile(__dirname + "/reset.html");
+  res.sendFile(__dirname + "/html/reset.html");
 });
 app.get("/dashboard", (req, res) => {
   res.sendFile(__dirname + "/dash.html");
@@ -52,6 +52,8 @@ app.get("/dashboard", (req, res) => {
 app.post("/sign-in", function (req, res) {
   let email = req.body.email;
   let pass = req.body.psw;
+
+
   index = usersSignup.findIndex((x) => x.user === email && x.pass === pass);
   if (index != -1) {
     if (email == "Admin@g.com" && pass == "Admin") {
@@ -66,10 +68,9 @@ app.post("/sign-in", function (req, res) {
     console.log("User not found");
   }
 });
-app.use(express.json());
-app.use(express.urlencoded());
 
 app.post("/sign-up", function (req, res) {
+  console.log(req.body);
   var Fname = req.body.firstName;
   var Lname = req.body.lastName;
   var pass = req.body.Password;
@@ -81,16 +82,13 @@ app.post("/sign-up", function (req, res) {
     if (result != null) {
       console.log("User exists");
     } else {
-      con.query("INSERT INTO users (Name,FamilyName,Email,PromoCode,Password) values($1,$2,$3,$4,$5)", [
-        Fname,
-        Lname,
-        email,
-        pass,
-        pCode,
-      ]);
+      con.query(
+        "INSERT INTO users (Name,FamilyName,Email,PromoCode,Password) values($1,$2,$3,$4,$5)",
+        [Fname, Lname, email, pass, pCode]
+      );
     }
   });
-
+  console.log(Fname + " " + Lname + " " + email + " " + pass + " " + pCode);
   res.redirect("/sign-in");
   console.log(usersSignup);
   var mailOptions = {
