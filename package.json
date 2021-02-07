@@ -22,7 +22,8 @@
     "expressjs": "*",
     "nodemailer": "*",
     "nodemon": "*",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "url-crypt": "^1.2.1"
   },
   "devDependencies": {},
   "description": ""
